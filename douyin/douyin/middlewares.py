@@ -7,7 +7,8 @@ from scrapy import signals
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
-
+from scrapy.http import HtmlResponse
+import time
 
 class DouyinSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -78,7 +79,13 @@ class DouyinDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        return None
+        spider.browser.get(request.url)
+        # spider.browser.refresh()
+        time.sleep(30)
+        print(f"当前访问{request.url}")
+        spider.browser.refresh()
+        time.sleep(1)
+        return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
