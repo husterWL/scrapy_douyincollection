@@ -13,6 +13,7 @@ from selenium import webdriver
 import json
 import re
 from selenium.webdriver.common.by import By
+import requests
 
 class DouyinSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -105,15 +106,25 @@ class DouyinDownloaderMiddleware:
         
         elif re.search(r'(?<=/)[^/]+(?=/[^/]*$)', request.url)[0] == 'video':
             options = webdriver.EdgeOptions()
-            # options.add_argument('--headless')
+            options.add_argument('--headless')
             driver = webdriver.Edge(options = options)
             driver.get(request.url)
-            driver.delete_all_cookies()
-            for cookie in self.cookies_list:
-                driver.add_cookie(cookie)
-            driver.refresh()
-            time.sleep(5)
-            return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
+            # driver.delete_all_cookies()
+            # for cookie in self.cookies_list:
+            #     driver.add_cookie(cookie)
+            # driver.refresh()
+            # time.sleep(2)
+            # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
+            link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
+            filename = re.findall(r'/([^/]*$)', request.url)[0] + '.mp4'
+            save_path = 'E:/Vedios/dy2/' + filename
+            res = requests.get(link, stream = True)
+            with open(save_path, 'wb') as f:
+                for chunk in res.iter_content(chunk_size = 10240):
+                    f.write(chunk)
+
+            # return HtmlResponse(url = driver.current_url, body = driver.page_source , encoding='utf-8')
+            # yield 
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.

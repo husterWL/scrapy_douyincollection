@@ -44,7 +44,7 @@ class CollectionSpider(scrapy.Spider):
         for beauty in beautylist:
             items = DouyinItem()
             num = num + 1
-            if num == 4:
+            if num == 3:
                 break
             if beauty.xpath('./div/a/@href').get()[1:6] == 'video':
                 items['beautylink'] = 'https://www.douyin.com' + beauty.xpath('./div/a/@href').get()
@@ -58,8 +58,8 @@ class CollectionSpider(scrapy.Spider):
     def parse_video(self, response):
         items = response.meta['video_note']
         items['name'] = re.findall(r'/([^/]*$)', response.url)[0]
-        if re.search(r'(?<=/)[^/]+(?=/[^/]*$)', response.url)[0] == 'video':
-            items['videolink'] = 'https:' + response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]/@src').get()
-            print('视频原始地址是：', items['videolink'])     
-            yield items
+        # if re.search(r'(?<=/)[^/]+(?=/[^/]*$)', response.url)[0] == 'video':
+            # items['videolink'] = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]/@src').get()
+            # print('视频原始地址是：', items['videolink'])     
+            # yield items
         
