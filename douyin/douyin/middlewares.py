@@ -9,6 +9,10 @@ from scrapy import signals
 from itemadapter import is_item, ItemAdapter
 from scrapy.http import HtmlResponse
 import time
+from selenium import webdriver
+import json
+import re
+from selenium.webdriver.common.by import By
 
 class DouyinSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -79,13 +83,37 @@ class DouyinDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        spider.browser.get(request.url)
-        # spider.browser.refresh()
-        time.sleep(30)
-        print(f"当前访问{request.url}")
-        spider.browser.refresh()
-        time.sleep(1)
-        return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
+        with open ('cookies.txt', 'r') as f:
+            self.cookies_list = json.load(f)
+        if re.search(r'(?<=/)[^/]+(?=/[^/]*$)', request.url)[0] == 'user':
+            # browser = webdriver.Edge()
+            # browser.get(request.url)
+            # time.sleep(20)
+            # with open('cookies.txt','w') as f:
+            #     f.write(json.dumps(browser.get_cookies()))
+            # browser.close()
+            
+            spider.browser.get(request.url)
+            spider.browser.delete_all_cookies()
+            for cookie in self.cookies_list:
+                spider.browser.add_cookie(cookie)
+            spider.browser.refresh()
+            time.sleep(10)
+            # print(f"当前访问{request.url}")
+
+            return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
+        
+        elif re.search(r'(?<=/)[^/]+(?=/[^/]*$)', request.url)[0] == 'video':
+            options = webdriver.EdgeOptions()
+            # options.add_argument('--headless')
+            driver = webdriver.Edge(options = options)
+            driver.get(request.url)
+            driver.delete_all_cookies()
+            for cookie in self.cookies_list:
+                driver.add_cookie(cookie)
+            driver.refresh()
+            time.sleep(5)
+            return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.

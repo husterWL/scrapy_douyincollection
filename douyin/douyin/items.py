@@ -11,3 +11,5 @@ class DouyinItem(scrapy.Item):
     # name = scrapy.Field()
     pass
     beautylink = scrapy.Field()
+    name = scrapy.Field()
+    videolink = scrapy.Field()
