@@ -44,20 +44,23 @@ class CollectionSpider(scrapy.Spider):
         for beauty in beautylist:
             items = DouyinItem()
             num = num + 1
-            if num == 3:
+            if num == 326:
                 break
             if beauty.xpath('./div/a/@href').get()[1:6] == 'video':
                 items['beautylink'] = 'https://www.douyin.com' + beauty.xpath('./div/a/@href').get()
+                with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.txt', 'a') as f:
+                    f.write(items['beautylink'] + '\n')
             else:
                 items['beautylink'] = 'https:' + beauty.xpath('./div/a/@href').get()
-            # print(items['beautylink'])
+            # print('视频地址为：', items['beautylink'])
             #暂时只有前10个爬到,可以手动滚动，划到相应的位置
-        # print(len(beautylist))
-            yield scrapy.Request(items['beautylink'], meta = {'video_note': copy.deepcopy(items)}, callback = self.parse_video)
+            # yield scrapy.Request(items['beautylink'], meta = {'video_note': copy.deepcopy(items)}, callback = self.parse_video)
 
-    def parse_video(self, response):
-        items = response.meta['video_note']
-        items['name'] = re.findall(r'/([^/]*$)', response.url)[0]
+        # print(len(beautylist))
+
+    # def parse_video(self, response):
+    #     items = response.meta['video_note']
+    #     items['name'] = re.findall(r'/([^/]*$)', response.url)[0]
         # if re.search(r'(?<=/)[^/]+(?=/[^/]*$)', response.url)[0] == 'video':
             # items['videolink'] = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]/@src').get()
             # print('视频原始地址是：', items['videolink'])     

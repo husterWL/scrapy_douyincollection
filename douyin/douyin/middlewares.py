@@ -14,6 +14,7 @@ import json
 import re
 from selenium.webdriver.common.by import By
 import requests
+import os
 
 class DouyinSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -99,30 +100,47 @@ class DouyinDownloaderMiddleware:
             for cookie in self.cookies_list:
                 spider.browser.add_cookie(cookie)
             spider.browser.refresh()
-            time.sleep(10)
+            time.sleep(60)
             # print(f"当前访问{request.url}")
-
+            # spider.browser.close()
             return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
         
-        elif re.search(r'(?<=/)[^/]+(?=/[^/]*$)', request.url)[0] == 'video':
+        # elif re.search(r'(?<=/)[^/]+(?=/[^/]*$)', request.url)[0] == 'video':
+        #     options = webdriver.EdgeOptions()
+        #     # options.add_argument('--headless')
+        #     driver = webdriver.Edge(options = options)
+        #     driver.get(request.url)
+        #     # driver.delete_all_cookies()
+        #     # for cookie in self.cookies_list:
+        #     #     driver.add_cookie(cookie)
+        #     # driver.refresh()
+        #     time.sleep(2)
+        #     # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
+        #     try:
+        #         link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
+        #         filename = re.findall(r'/([^/]*$)', request.url)[0] + '.mp4'
+        #         save_path = 'E:/Vedios/dy2/' + filename
+        #         res = requests.get(link, stream = True)
+        #         with open(save_path, 'wb') as f:
+        #             for chunk in res.iter_content(chunk_size = 10240):
+        #                 f.write(chunk)
+        #     finally:
+        #         pass
+
+        elif re.search(r'(?<=/)[^/]+(?=/[^/]*$)', request.url)[0] == 'note':
             options = webdriver.EdgeOptions()
-            options.add_argument('--headless')
+            # options.add_argument('--headless')
             driver = webdriver.Edge(options = options)
             driver.get(request.url)
-            # driver.delete_all_cookies()
-            # for cookie in self.cookies_list:
-            #     driver.add_cookie(cookie)
-            # driver.refresh()
-            # time.sleep(2)
-            # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
-            link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
-            filename = re.findall(r'/([^/]*$)', request.url)[0] + '.mp4'
-            save_path = 'E:/Vedios/dy2/' + filename
-            res = requests.get(link, stream = True)
-            with open(save_path, 'wb') as f:
-                for chunk in res.iter_content(chunk_size = 10240):
-                    f.write(chunk)
-
+            time.sleep(2)
+            linklist = driver.find_elements(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/main/div[1]/div[1]/div/div[2]//div').get_attribute('src')
+            for link in linklist:
+                files = os.listdir('E:/Pictures/image of beauty/single_beauty')
+                filename = str(len(files)) + '.png'
+                save_path = 'E:/Pictures/image of beauty/single_beauty/' + filename
+                res = requests.get(link)
+                with open(save_path, 'wb') as f:
+                    f.write(res.content)
             # return HtmlResponse(url = driver.current_url, body = driver.page_source , encoding='utf-8')
             # yield 
 
