@@ -44,7 +44,7 @@ class CollectionSpider(scrapy.Spider):
         for beauty in beautylist:
             items = DouyinItem()
             num = num + 1
-            if num == 118:
+            if num == 53:
                 break
             if beauty.xpath('./div/a/@href').get()[1:6] == 'video':
                 items['beautylink'] = 'https://www.douyin.com' + beauty.xpath('./div/a/@href').get()
