@@ -14,12 +14,13 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
         driver = webdriver.Edge(options = options)
         url = line.strip()
         driver.get(url)
-                    # driver.delete_all_cookies()
-                    # for cookie in self.cookies_list:
-                    #     driver.add_cookie(cookie)
-                    # driver.refresh()
-        # time.sleep(2)
-                    # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
+        # driver.delete_all_cookies()
+        # for cookie in self.cookies_list:
+        #     driver.add_cookie(cookie)
+            # driver.refresh()
+        time.sleep(1)
+        # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
+        
         try:
             link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
             filename = re.findall(r'/([^/]*$)', url)[0] + '.mp4'
@@ -28,7 +29,9 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
             with open(save_path, 'wb') as f:
                 for chunk in res.iter_content(chunk_size = 10240):
                     f.write(chunk)
-        finally:
-            pass
+        
+        except:
+            
             # print(url)
             driver.close()
+            continue
