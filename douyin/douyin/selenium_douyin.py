@@ -23,15 +23,24 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
         
         try:
             link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
-            filename = re.findall(r'/([^/]*$)', url)[0] + '.mp4'
-            save_path = 'E:/Vedios/dy2/' + filename
+        
+        except:
+            
+            driver.close()
+            continue
+
+        filename = re.findall(r'/([^/]*$)', url)[0] + '.mp4'
+        '''
+        可以加个判断，如果文件存在，则不保存，如果文件不存在，则保存。
+        '''
+        save_path = 'E:/Vedios/dy2/' + filename
+
+        while os.path.exists(save_path) == False:
+                # filename = re.findall(r'/([^/]*$)', url)[0] + str(time.time()) + '.mp4'
+                # save_path = 'E:/Vedios/dy2/' + filename
             res = requests.get(link, stream = True)
             with open(save_path, 'wb') as f:
                 for chunk in res.iter_content(chunk_size = 10240):
                     f.write(chunk)
         
-        except:
-            
-            # print(url)
-            driver.close()
-            continue
+        
