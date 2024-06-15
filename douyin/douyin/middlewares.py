@@ -85,7 +85,7 @@ class DouyinDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        with open ('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/cookies.txt', 'r') as f:
+        with open ('E:/Git_Repository/scrapy_douyincollection/cookie.txt', 'r') as f:
             self.cookies_list = json.load(f)
         if re.search(r'(?<=/)[^/]+(?=/[^/]*$)', request.url)[0] == 'user':
             # browser = webdriver.Edge()
@@ -100,7 +100,7 @@ class DouyinDownloaderMiddleware:
             for cookie in self.cookies_list:
                 spider.browser.add_cookie(cookie)
             spider.browser.refresh()
-            time.sleep(30)
+            time.sleep(20)
             # print(f"当前访问{request.url}")
             # spider.browser.close()
             return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
