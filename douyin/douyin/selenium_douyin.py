@@ -40,7 +40,8 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
 
 
             try:
-                link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
+                # link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
+                link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
                 # print('视频链接为:', link)
 
             except:

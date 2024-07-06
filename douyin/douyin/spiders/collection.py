@@ -40,12 +40,14 @@ class CollectionSpider(scrapy.Spider):
     def parse_list(self, response):
         pass
         # //*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[1]/div/a
-        beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
+        # //*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[1]/div/a
+        # beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
+        beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
         num = 0
         for beauty in beautylist:
             items = DouyinItem()
             num = num + 1
-            if num == 31:
+            if num == 158:
                 break
             if beauty.xpath('./div/a/@href').get()[1:6] == 'video':
                 items['beautylink'] = 'https://www.douyin.com' + beauty.xpath('./div/a/@href').get()
