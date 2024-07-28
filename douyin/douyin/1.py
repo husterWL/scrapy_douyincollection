@@ -1,13 +1,9 @@
 import requests
 
-# res = requests.get('https://v3-web.douyinvod.com/6cab8e9050007d09a0d100f8ac33cc9f/669e1bcd/video/tos/cn/tos-cn-ve-15/oQOdlILX2dNAeysXQ2IfCLNB7BXG8AYaaQeMS6/?a=6383&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=885&bt=885&cs=0&ds=6&ft=4TMWc6DhppftTzL8Esq.C_fauVq0InGLUstc6B3.RXS6zQdHDDJroQKMWwnlpusZ.&mime_type=video_mp4&qs=12&rc=ODNkOzc8OWkzN2ZoaWc7O0Bpamh0a3E5cjVsdDMzNGkzM0AxMzQ1XjFeXzIxXzJiYjJiYSNrNi1jMmRzamFgLS1kLWFzcw%3D%3D&btag=c0000e00008000&cquery=100b&dy_q=1721634229&feature_id=46a7bb47b4fd1280f3d3825bf2b29388&l=202407221543496EC960B161C5BB0055C5', stream = True)
-# print(res)
-# with open('e:/Vedios/dy4/1.mp4', 'wb') as f:
-#     f.write(res.content)
 headers = {
-    ':authority': 'www.douyin.com',
-    ':method': 'GET',
-    ':scheme': 'https',
+    'authority': 'www.douyin.com',
+    'method': 'GET',
+    'scheme': 'https',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
@@ -24,5 +20,11 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0',
     'Referer': 'https://www.douyin.com/',
 }
-for head in headers:
-    print(headers[head])
+
+res = requests.get('https://v3-web.douyinvod.com/124f356fbe9f499708757e29aa66c3da/66a66c4d/video/tos/cn/tos-cn-ve-15/o8ElEHAIIfGAk0WL5WE6eaIdeGPC2DhtQVc9eg/?a=6383&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=482&bt=482&cs=0&ds=6&ft=_7BhlHPTAARX7nbqJuyd.FRkfjyo-IWr6qXlH6oe_f5HnVsWPPnw8RdfG255Rfqs&mime_type=video_mp4&qs=0&rc=Omk5ZTo5ODc2Zjg8Omk3ZkBpM3hpeXk5cnFodDMzNGkzM0BjNDFeNjRfNV8xYjVeMDBhYSNlLTUwMmRzX2ZgLS1kLWFzcw%3D%3D&btag=c0000e00038000&cquery=100b&dy_q=1722178533&feature_id=f0150a16a324336cda5d6dd0b69ed299&l=202407282255330EF94A13FB2C054C3E62', headers = headers, stream = True)
+print(res)
+with open('e:/Vedios/dy4/1.mp4', 'wb') as f:
+    f.write(res.content)
+
+# for head in headers:
+#     print(headers[head])

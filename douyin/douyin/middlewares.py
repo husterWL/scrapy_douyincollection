@@ -100,7 +100,7 @@ class DouyinDownloaderMiddleware:
             for cookie in self.cookies_list:
                 spider.browser.add_cookie(cookie)
             spider.browser.refresh()
-            time.sleep(200)
+            time.sleep(40)
             # print(f"当前访问{request.url}")
             # spider.browser.close()
             return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
