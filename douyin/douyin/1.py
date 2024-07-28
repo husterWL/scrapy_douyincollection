@@ -1,18 +1,13 @@
-import time
-from selenium import webdriver
-import json
-import re
-from selenium.webdriver.common.by import By
 import requests
-import os
 
-with open('cookie.txt', 'r') as cookie:
-    cookielist = json.load(cookie)
-
+# res = requests.get('https://v3-web.douyinvod.com/6cab8e9050007d09a0d100f8ac33cc9f/669e1bcd/video/tos/cn/tos-cn-ve-15/oQOdlILX2dNAeysXQ2IfCLNB7BXG8AYaaQeMS6/?a=6383&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=885&bt=885&cs=0&ds=6&ft=4TMWc6DhppftTzL8Esq.C_fauVq0InGLUstc6B3.RXS6zQdHDDJroQKMWwnlpusZ.&mime_type=video_mp4&qs=12&rc=ODNkOzc8OWkzN2ZoaWc7O0Bpamh0a3E5cjVsdDMzNGkzM0AxMzQ1XjFeXzIxXzJiYjJiYSNrNi1jMmRzamFgLS1kLWFzcw%3D%3D&btag=c0000e00008000&cquery=100b&dy_q=1721634229&feature_id=46a7bb47b4fd1280f3d3825bf2b29388&l=202407221543496EC960B161C5BB0055C5', stream = True)
+# print(res)
+# with open('e:/Vedios/dy4/1.mp4', 'wb') as f:
+#     f.write(res.content)
 headers = {
-    'authority': 'www.douyin.com',
-    'method': 'GET',
-    'scheme': 'https',
+    ':authority': 'www.douyin.com',
+    ':method': 'GET',
+    ':scheme': 'https',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
@@ -29,75 +24,5 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0',
     'Referer': 'https://www.douyin.com/',
 }
-
-with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.txt', 'r') as f:
-    for line in f:
-        # print(line.strip())
-        # options = webdriver.EdgeOptions()
-        # driver = webdriver.Edge(options = options)
-        url = line.strip()
-        filename = re.findall(r'/([^/]*$)', url)[0] + '.mp4'
-        save_path = 'E:/Vedios/dy3/' + filename
-        if os.path.exists(save_path) == False:
-            
-            # print(url)
-            
-            options = webdriver.EdgeOptions()
-
-            options.add_argument('--headless')
-            options.add_argument('--mute-audio')
-            options.add_argument('--disable-blink-features')
-            options.add_argument('--disable-blink-features=AutomationControlled')
-            options.add_experimental_option('useAutomationExtension', False)
-            # options.add_experimental_option('excludeSwitches', ['enable-automation'])
-            options.add_experimental_option('detach', True)
-
-
-            driver = webdriver.Edge(options = options)
-
-            driver.get(url)
-
-            driver.delete_all_cookies()
-            for cook in cookielist:
-                driver.add_cookie(cook)
-
-            driver.refresh()
-
-            time.sleep(1)
-            # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
-            # with open('cookie.txt', 'w') as c:
-            #     c.write(json.dumps(driver.get_cookies()))
-
-            try:
-                # link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
-                link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]').get_attribute('src')
-                # //*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]
-                # //*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]
-
-            except:
-                driver.close()
-                continue
-            # link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
-
-            # //*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[2]
-            '''
-            可以加个判断，如果文件存在，则不保存，如果文件不存在，则保存。
-            '''
-            
-
-            # while os.path.exists(save_path) == False:
-            #         # filename = re.findall(r'/([^/]*$)', url)[0] + str(time.time()) + '.mp4'
-            #         # save_path = 'E:/Vedios/dy2/' + filename
-            #     res = requests.get(link, stream = True)
-            #     with open(save_path, 'wb') as f:
-            #         for chunk in res.iter_content(chunk_size = 10240):
-            #             f.write(chunk)
-            print("这是连接------------------------------------------------------------------------------", link)
-
-            res = requests.get(link, headers = headers, stream = True)
-            with open(save_path, 'wb') as f:
-                f.write(res.content)
-            driver.close()
-        
-        else:
-            continue
+for head in headers:
+    print(headers[head])
