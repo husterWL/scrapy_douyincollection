@@ -21,9 +21,9 @@ headers = {
     'Referer': 'https://www.douyin.com/',
 }
 
-res = requests.get('https://v3-web.douyinvod.com/124f356fbe9f499708757e29aa66c3da/66a66c4d/video/tos/cn/tos-cn-ve-15/o8ElEHAIIfGAk0WL5WE6eaIdeGPC2DhtQVc9eg/?a=6383&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=482&bt=482&cs=0&ds=6&ft=_7BhlHPTAARX7nbqJuyd.FRkfjyo-IWr6qXlH6oe_f5HnVsWPPnw8RdfG255Rfqs&mime_type=video_mp4&qs=0&rc=Omk5ZTo5ODc2Zjg8Omk3ZkBpM3hpeXk5cnFodDMzNGkzM0BjNDFeNjRfNV8xYjVeMDBhYSNlLTUwMmRzX2ZgLS1kLWFzcw%3D%3D&btag=c0000e00038000&cquery=100b&dy_q=1722178533&feature_id=f0150a16a324336cda5d6dd0b69ed299&l=202407282255330EF94A13FB2C054C3E62', headers = headers, stream = True)
+res = requests.get('https://v3-web-prime.douyinvod.com/video/tos/cn/tos-cn-ve-15/oABhApCYFi3pcAaQIziBydfkEiGXgIpzADDPXe/?a=6383&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&cv=1&br=561&bt=561&cs=0&ds=3&ft=4SNWjAIMppftTzL8Esq.C_fauVq0InyeSctc6B3qlVS6zQdHDDLb~M7nU6GqtusZ.&mime_type=video_mp4&qs=1&rc=PGc0NWczaDZmMzM8ODo4OUBpMzU4Zmw5cjpudTMzNGkzM0AyXl9jYmJfX2IxMl9iYzIxYSNmYnFiMmRzNS5gLS1kLTBzcw%3D%3D&btag=80000e00038000&cquery=100b&dy_q=1724388386&expire=1724392592&feature_id=46a7bb47b4fd1280f3d3825bf2b29388&l=20240823124626F1F3AD700097360B2972&ply_type=4&policy=4&signature=92a333f6a18ded5eef539f85eb1e5a3d&tk=webid&webid=edf0d417f427c69b9e8dcf334ec311738f5d7ef487ab7a4043d6c18231e232a4f32f18448adb07d6570627193de18b3dbab0666da8e59d0ae53bf588959cf689e1b73b8c259468029552d61687d4e82fd87171fbd9ff98bfa25a689317f915258f41d457127d176d963cd95ef36b88dde672122faf6230b6ca6b8305976f374c8fd8cbb54a9fb4439cc5980f241ff6e0cc6d247e09751e0b74dde9116e95a46a90c5b1467d2ffe5a38ef7d3ed25e0eeaaa59d90e2b4127f82f736fd8bd6c6959-277ce8cd01e1d72737c4afed269fe269', headers = headers, stream = True)
 print(res)
-with open('e:/Vedios/dy4/1.mp4', 'wb') as f:
+with open('e:/Vedios/dy4/7404838297203199266.mp4', 'wb') as f:
     f.write(res.content)
 
 # for head in headers:

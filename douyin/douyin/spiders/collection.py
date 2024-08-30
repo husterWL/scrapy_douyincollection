@@ -17,11 +17,11 @@ class CollectionSpider(scrapy.Spider):
         
         self.options = webdriver.EdgeOptions()
         # edge_options.add_argument('--headless')
-        # self.options.add_argument('--disable-blink-features=AutomationControlled')
-        # self.options.add_experimental_option('useAutomationExtension', False)
+        self.options.add_argument('--disable-blink-features=AutomationControlled')
+        self.options.add_experimental_option('useAutomationExtension', False)
         # 模拟请求，避免被反爬
-        # self.options.add_experimental_option('excludeSwitches', ['enable-automation'])
-        # self.options.add_experimental_option('detach', True)
+        self.options.add_experimental_option('excludeSwitches', ['enable-automation'])
+        self.options.add_experimental_option('detach', True)
         # 获取请求信息，避免被反爬
         # prefs = {"profile.managed_default_content_settings.images": 2}
         # self.options.add_experimental_option("prefs", prefs)
@@ -38,19 +38,24 @@ class CollectionSpider(scrapy.Spider):
         yield scrapy.Request(self.start_urls[0], callback = self.parse_list)
 
     def parse_list(self, response):
-        pass
-        # //*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[1]/div/a
-        # //*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[1]/div/a
+        num = 0
+
         # beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
         beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
-        num = 0
+        
+        # //*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[276]
+        # //*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[240]/div/a
+        # //*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[240]/div/a
         for beauty in beautylist:
             items = DouyinItem()
             num = num + 1
-            if num == 128:
+            if num == 355:
                 break
             if beauty.xpath('./div/a/@href').get()[1:6] == 'video':
                 items['beautylink'] = 'https://www.douyin.com' + beauty.xpath('./div/a/@href').get()
+                
+                # print(items['beautylink'])
+                
                 with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.txt', 'a') as f:
                     f.write(items['beautylink'] + '\n')
             else:

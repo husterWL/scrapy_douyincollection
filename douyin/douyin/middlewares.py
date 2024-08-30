@@ -100,9 +100,12 @@ class DouyinDownloaderMiddleware:
             for cookie in self.cookies_list:
                 spider.browser.add_cookie(cookie)
             spider.browser.refresh()
-            time.sleep(40)
+            time.sleep(80)
             # print(f"当前访问{request.url}")
             # spider.browser.close()
+            with open('cookie.txt', 'w') as c:
+                c.write(json.dumps(spider.browser.get_cookies()))
+
             return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')
         
         # elif re.search(r'(?<=/)[^/]+(?=/[^/]*$)', request.url)[0] == 'video':
