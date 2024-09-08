@@ -103,7 +103,7 @@ class DouyinDownloaderMiddleware:
             time.sleep(60)
             # print(f"当前访问{request.url}")
             # spider.browser.close()
-            with open('cookie.txt', 'w') as c:
+            with open('E:/Git_Repository/scrapy_douyincollection/cookie.txt', 'w') as c:
                 c.write(json.dumps(spider.browser.get_cookies()))
 
             return HtmlResponse(url = spider.browser.current_url, body = spider.browser.page_source , encoding='utf-8')

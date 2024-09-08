@@ -37,14 +37,14 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
         # driver = webdriver.Edge(options = options)
         url = line.strip()
         filename = re.findall(r'/([^/]*$)', url)[0] + '.mp4'
-        save_path = 'E:/Vedios/dy4/' + filename
+        save_path = 'E:/Vedios/dy3/' + filename
         if os.path.exists(save_path) == False:
             
             # print(url)
             
             options = webdriver.EdgeOptions()
 
-            # options.add_argument('--headless')
+            options.add_argument('--headless')
             options.add_argument('--mute-audio')
             options.add_argument('--disable-blink-features')
             options.add_argument('--disable-blink-features=AutomationControlled')
@@ -63,7 +63,7 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
 
             driver.refresh()
 
-            time.sleep(60)
+            time.sleep(1)
 
 
             # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
@@ -72,7 +72,7 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
                 # json.dump(json.dumps(driver.get_cookies), c)
 
             try:
-                # link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src')
+                # link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[3]').get_attribute('src')
                 link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]').get_attribute('src')
                 # //*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]
                 # //*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]
@@ -110,7 +110,6 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
                         f.write(res.content)
                 driver.close()
             else:
-                res = requests.get(link, headers = headers, stream = True)
                 with open(save_path, 'wb') as f:
                     f.write(res.content)
                 driver.close()

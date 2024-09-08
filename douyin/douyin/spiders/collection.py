@@ -40,16 +40,15 @@ class CollectionSpider(scrapy.Spider):
     def parse_list(self, response):
         num = 0
 
-        # beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
-        beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
-        
-        # //*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[276]
-        # //*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[240]/div/a
-        # //*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[240]/div/a
+        beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
+        # beautylist = response.xpath('//*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul//li')
+        # //*[@id="douyin-right-container"]/div[2]/div/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[300]/div/a
+        # //*[@id="douyin-right-container"]/div[2]/div/div/div[3]/div/div/div[2]/div/div[2]/div/div/ul/li[276]/div/a
+
         for beauty in beautylist:
             items = DouyinItem()
             num = num + 1
-            if num == 355:
+            if num == 261:
                 break
             if beauty.xpath('./div/a/@href').get()[1:6] == 'video':
                 items['beautylink'] = 'https://www.douyin.com' + beauty.xpath('./div/a/@href').get()
