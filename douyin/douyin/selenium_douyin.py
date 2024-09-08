@@ -44,7 +44,7 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
             
             options = webdriver.EdgeOptions()
 
-            options.add_argument('--headless')
+            # options.add_argument('--headless')
             options.add_argument('--mute-audio')
             options.add_argument('--disable-blink-features')
             options.add_argument('--disable-blink-features=AutomationControlled')
@@ -63,7 +63,7 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
 
             driver.refresh()
 
-            time.sleep(1)
+            time.sleep(40)
 
 
             # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
@@ -72,8 +72,8 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
                 # json.dump(json.dumps(driver.get_cookies), c)
 
             try:
-                # link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[3]').get_attribute('src')
-                link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]').get_attribute('src')
+                link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div/div[1]/div[2]/div/xg-video-container/video/source[3]').get_attribute('src')
+                # link = driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]').get_attribute('src')
                 # //*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]
                 # //*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]
                 # //*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[3]
