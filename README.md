@@ -1,2 +1,2 @@
 # scrapy_douyincollection
-this project is for crawling my collection of douyin. 
+this project is for crawling personal collection of douyin. 
