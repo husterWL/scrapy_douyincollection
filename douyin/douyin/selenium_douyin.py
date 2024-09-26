@@ -65,7 +65,7 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
 
             # driver.refresh()
 
-            time.sleep(10)
+            time.sleep(40)
 
 
             # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
@@ -104,17 +104,31 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
             # with open(save_path, 'wb') as f:
             #     f.write(res.content)
             # driver.close()
-
+            '''
             res = requests.get(link, headers = headers, stream = True)
             if int(res.headers.get('Content-Length')) >= 10240:
                 with open(save_path, 'wb') as f:
                     for chunk in res.iter_content(chunk_size = 10240):
-                        f.write(res.content)
+                        f.write(chunk)
                 driver.close()
             else:
                 with open(save_path, 'wb') as f:
                     f.write(res.content)
                 driver.close()
-        
+            '''
+                     #2024年9月26日，上面是为了防止视频太大而无法直接写入，driver.close()可能会导致后续操作出现问题
+            #并且stream = True时，会进行流式下载，应该逐块写入文件
+            res = requests.get(link, headers = headers, stream = True)
+            if res.status_code == 200:
+                with open(save_path, 'wb') as f:
+                    for chunk in res.iter_content(chunk_size = 1024):
+                        if chunk: f.write(chunk)
+                print(f"File downloaded successfully to {save_path}")
+            else:
+                print(f"Failed to download file. Status code: {res.status_code}")
+
+            driver.close()
+
+
         else:
             continue
