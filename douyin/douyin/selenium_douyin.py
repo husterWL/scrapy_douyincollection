@@ -46,24 +46,26 @@ with open('E:/Git_Repository/scrapy_douyincollection/douyin/douyin/spiders/link.
 
             # options.add_argument('--headless')
             options.add_argument('--mute-audio')
+            options.add_argument('--disable-gpu')
+            options.add_argument('--no-sandbox')
             options.add_argument('--disable-blink-features')
             options.add_argument('--disable-blink-features=AutomationControlled')
             options.add_experimental_option('useAutomationExtension', False)
-            # options.add_experimental_option('excludeSwitches', ['enable-automation'])
+            options.add_experimental_option('excludeSwitches', ['enable-automation'])
             options.add_experimental_option('detach', True)
-
+            # options.add_argument('--headless')
 
             driver = webdriver.Edge(options = options)
 
             driver.get(url)
 
-            driver.delete_all_cookies()
-            for cook in cookielist:
-                driver.add_cookie(cook)
+            # driver.delete_all_cookies()
+            # for cook in cookielist:
+            #     driver.add_cookie(cook)
 
-            driver.refresh()
+            # driver.refresh()
 
-            time.sleep(40)
+            time.sleep(10)
 
 
             # print('原始地址为-------------------------:', driver.find_element(By.XPATH, '//*[@id="douyin-right-container"]/div[2]/div/div[1]/div[2]/div/xg-video-container/video/source[2]').get_attribute('src'))
